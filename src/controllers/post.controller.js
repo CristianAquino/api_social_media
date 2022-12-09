@@ -18,7 +18,7 @@ export const getPost = async (req, res, next) => {
     const post = await postModel.find({ userId: req.id });
     return res.status(200).json(
       post.sort((a, b) => {
-        return b.createdAt - a.createdAt;
+        return b.updatedAt - a.updatedAt;
       })
     );
   } catch (error) {

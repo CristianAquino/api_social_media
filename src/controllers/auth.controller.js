@@ -25,7 +25,7 @@ export const registerUser = async (req, res, next) => {
     const token = jwt.sign(userForToken, SECRET_WORD, {
       expiresIn: 60 * 60 * 24,
     });
-    res.status(200).json({ token });
+    res.status(200).json({ token, user: savedUser });
   } catch (error) {
     next(error);
   }
@@ -52,7 +52,7 @@ export const loginUser = async (req, res, next) => {
     const token = jwt.sign(userForToken, SECRET_WORD, {
       expiresIn: 60 * 60 * 24,
     });
-    res.status(200).json({ token });
+    res.status(200).json({ token, user: userFound });
   } catch (error) {
     next(error);
   }
