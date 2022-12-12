@@ -5,7 +5,7 @@ export const verifyImage = (req, res, next) => {
   if (!req.files)
     return res.status(404).json({ message: "necesita enviar una imagen" });
 
-  const { image } = req.files;
+  const image = req.files.file;
 
   let ext = path.extname(image.name);
   if (!extension.includes(ext))
