@@ -1,10 +1,17 @@
 import postModel from "../models/Post.js";
+import { uploadImage, deleteFolder } from "../libs/cloudinary.js";
 
 // create a post
 export const createPost = async (req, res, next) => {
   const post = new postModel(req.body);
+  const { image } = req.files;
+
+  const upload = await uploadImage(image.tempFilePath, image.name);
+
   try {
     post.userId = req.id;
+    post.image = upload.url;
+    post.imageId = upload.public_id.split("/")[0];
     await post.save();
     return res.status(200).json({ message: "post created!" });
   } catch (error) {
@@ -40,9 +47,10 @@ export const updatePost = async (req, res, next) => {
 
 // delete a post
 export const deletePost = async (req, res, next) => {
-  const { postId } = req.params;
+  const { postId, imageId } = req.params;
   try {
     await postModel.findByIdAndDelete(postId);
+    await deleteFolder(imageId);
     return res.status(404).json({ message: "delete post" });
   } catch (error) {
     next(error);
