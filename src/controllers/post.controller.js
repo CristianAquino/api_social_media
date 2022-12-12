@@ -4,15 +4,25 @@ import { uploadImage, deleteFolder } from "../libs/cloudinary.js";
 // create a post
 export const createPost = async (req, res, next) => {
   const post = new postModel(req.body);
-  const image = req.files.file;
 
   try {
-    const upload = await uploadImage(image.tempFilePath, image.name);
     post.userId = req.id;
+    await post.save();
+    return res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// upload image
+export const uploadPostImage = async (req, res, next) => {
+  const image = req.files.file;
+  const post = {};
+  try {
+    const upload = await uploadImage(image.tempFilePath, image.name);
     post.image = upload.url;
     post.imageId = upload.public_id.split("/")[0];
-    await post.save();
-    return res.status(200).json({ message: "post created!" });
+    return res.status(200).json({ image: post.image, imageId: post.imageId });
   } catch (error) {
     next(error);
   }
