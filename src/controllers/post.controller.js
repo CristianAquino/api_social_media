@@ -4,11 +4,10 @@ import { uploadImage, deleteFolder } from "../libs/cloudinary.js";
 // create a post
 export const createPost = async (req, res, next) => {
   const post = new postModel(req.body);
-  const { image } = req.files;
-
-  const upload = await uploadImage(image.tempFilePath, image.name);
+  const image = req.files.file;
 
   try {
+    const upload = await uploadImage(image.tempFilePath, image.name);
     post.userId = req.id;
     post.image = upload.url;
     post.imageId = upload.public_id.split("/")[0];
