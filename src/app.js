@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import fileUpload from "express-fileupload";
 
 // import routes
 import infoRouter from "./routes/info.routes.js";
@@ -17,6 +18,11 @@ const app = express();
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 // routes
 app.use("/api", infoRouter);
