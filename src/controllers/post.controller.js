@@ -28,10 +28,24 @@ export const uploadPostImage = async (req, res, next) => {
   }
 };
 
-// get all post
+// get my posts
 export const getPost = async (req, res, next) => {
   try {
     const post = await postModel.find({ userId: req.id });
+    return res.status(200).json(
+      post.sort((a, b) => {
+        return b.updatedAt - a.updatedAt;
+      })
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get all posts
+export const getAllPost = async (req, res, next) => {
+  try {
+    const post = await postModel.find({ userId: { $ne: req.id } });
     return res.status(200).json(
       post.sort((a, b) => {
         return b.updatedAt - a.updatedAt;
