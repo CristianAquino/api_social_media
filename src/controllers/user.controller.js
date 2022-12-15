@@ -10,6 +10,20 @@ export const getUser = async (req, res, next) => {
   }
 };
 
+// get all posts not include my
+export const getAllUser = async (req, res, next) => {
+  try {
+    const post = await userModel.find({}, { password: 0 });
+    return res.status(200).json(
+      post.sort((a, b) => {
+        return b.createdAt - a.createdAt;
+      })
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 // update a User
 export const updateUser = async (req, res, next) => {
   const { body } = req;

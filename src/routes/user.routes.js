@@ -5,6 +5,7 @@ import {
   updateUser,
   deleteAccount,
   followUser,
+  getAllUser,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -12,6 +13,7 @@ const router = Router();
 router.get("/", verifyToken, getUser);
 router.put("/", verifyToken, updateUser);
 router.delete("/", verifyToken, deleteAccount);
+router.get("/all", verifyToken, getAllUser);
 router.put("/:id/follow", verifyToken, followUser);
 
 export default router;
