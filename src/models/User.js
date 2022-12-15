@@ -30,6 +30,7 @@ const userSchema = new Schema(
     livesin: String,
     worksAt: String,
     relationship: String,
+    country: String,
     followers: [],
     following: [],
   },
