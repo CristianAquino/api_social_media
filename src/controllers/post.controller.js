@@ -42,13 +42,13 @@ export const getPost = async (req, res, next) => {
   }
 };
 
-// get all posts
+// get all posts not include my
 export const getAllPost = async (req, res, next) => {
   try {
     const post = await postModel.find({ userId: { $ne: req.id } });
     return res.status(200).json(
       post.sort((a, b) => {
-        return b.updatedAt - a.updatedAt;
+        return b.createdAt - a.createdAt;
       })
     );
   } catch (error) {
