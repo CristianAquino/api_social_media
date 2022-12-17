@@ -15,7 +15,7 @@ const messageSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-postSchema.set("toJSON", {
+messageSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
