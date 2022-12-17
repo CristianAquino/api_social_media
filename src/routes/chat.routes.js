@@ -9,7 +9,7 @@ import { verifyToken } from "../middlewares/authJWT.js";
 const router = Router();
 
 router.post("/", verifyToken, createChat);
-router.get("/:userId", verifyToken, userChats);
+router.get("/", verifyToken, userChats);
 router.get("/find/:firstId/:secondId", verifyToken, findChat);
 
 export default router;

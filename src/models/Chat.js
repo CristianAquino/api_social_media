@@ -9,7 +9,7 @@ const chatSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-postSchema.set("toJSON", {
+chatSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
