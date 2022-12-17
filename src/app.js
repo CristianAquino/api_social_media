@@ -8,6 +8,8 @@ import infoRouter from "./routes/info.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import postsRouter from "./routes/post.routes.js";
+import chatRouter from "./routes/chat.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 // error
 import handleErrors from "./middlewares/handleErrors.js";
@@ -29,6 +31,8 @@ app.use("/api", infoRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/post", postsRouter);
+app.use("/api/chat", chatRouter);
+app.use("/api/message", messageRouter);
 
 // error
 app.use(handleErrors);
